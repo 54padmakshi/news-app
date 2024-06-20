@@ -12,7 +12,12 @@ export const fetchArticles = createAsyncThunk(
 
     try {
       console.log(`Fetching articles from: ${url}`);
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Upgrade-Insecure-Requests': '1'
+        }
+      });
       console.log('API Response:', response);
       return response.data.articles;
     } catch (error) {
