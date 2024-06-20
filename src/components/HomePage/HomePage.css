@@ -1,0 +1,24 @@
+.homepage {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+ 
+  
+ 
+  
+  .category-buttons button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .category-buttons button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+ 
+  
+
+  
+ 
