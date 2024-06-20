@@ -6,17 +6,19 @@ const BASE_URL = 'https://newsapi.org/v2/everything';
 
 export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
-  async (category, { getState }) => {
+  async (category, { getState, rejectWithValue }) => {
     const { currentPage } = getState().articles;
-    const response = await axios.get(BASE_URL, {
-      params: {
-        apiKey: API_KEY,
-        q: category || 'general',
-        page: currentPage,
-        pageSize: 10
-      }
-    });
-    return response.data.articles;
+    const url = `${BASE_URL}?apiKey=${API_KEY}&q=${category || 'general'}&page=${currentPage}&pageSize=10`;
+
+    try {
+      console.log(`Fetching articles from: ${url}`);
+      const response = await axios.get(url);
+      console.log('API Response:', response);
+      return response.data.articles;
+    } catch (error) {
+      console.error('API Request Failed:', error);
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
@@ -51,7 +53,7 @@ const articlesSlice = createSlice({
       })
       .addCase(fetchArticles.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       });
   }
 });
