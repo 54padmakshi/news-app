@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "http://*"
+  to = "https://*:443"
+  status = 301
+  force = true
