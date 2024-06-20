@@ -13,10 +13,10 @@ export const fetchArticles = createAsyncThunk(
         apiKey: API_KEY,
         q: category || 'general',
         page: currentPage,
-        pageSize: 10,
-      },
+        pageSize: 10
+      }
     });
-    return response.data;
+    return response.data.articles;
   }
 );
 
@@ -28,7 +28,7 @@ const articlesSlice = createSlice({
     totalPages: 1,
     loading: false,
     error: null,
-    selectedCategory: 'general',
+    selectedCategory: 'general'
   },
   reducers: {
     setCategory: (state, action) => {
@@ -36,7 +36,7 @@ const articlesSlice = createSlice({
     },
     setPage: (state, action) => {
       state.currentPage = action.payload;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -46,14 +46,14 @@ const articlesSlice = createSlice({
       })
       .addCase(fetchArticles.fulfilled, (state, action) => {
         state.loading = false;
-        state.articles = action.payload.articles;
+        state.articles = action.payload;
         state.totalPages = Math.ceil(action.payload.totalResults / 10);
       })
       .addCase(fetchArticles.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
-  },
+  }
 });
 
 export const { setCategory, setPage } = articlesSlice.actions;
