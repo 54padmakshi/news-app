@@ -1,5 +1,10 @@
+[build]
+  publish = "build"
+  functions = "functions"
+
 [[redirects]]
-  from = "http://*"
-  to = "https://*:443"
-  status = 301
-  force = true
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
