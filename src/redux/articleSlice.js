@@ -78,16 +78,13 @@ export const fetchArticles = createAsyncThunk(
     const url = `${BASE_URL}?q=${category || 'general'}&page=${currentPage}`;
 
     try {
-      console.log(`Fetching articles from: ${url}`);
       const response = await axios.get(url, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      console.log('API Response:', response);
       return response.data.articles;
     } catch (error) {
-      console.error('API Request Failed:', error);
       return rejectWithValue(error.response?.data || error.message);
     }
   }
